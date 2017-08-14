@@ -94,12 +94,25 @@ fi
 for appPATH in "${appPathArray[@]}";
 do
     appName=${appPATH/.app/}
-    mkdir -p "$backupPATH$appName$fontPATH"
+    #mkdir -p "$backupPATH$appName$fontPATH"
     # echo "$backupPATH$appName$fontPATH"
-    sudo mv "$basePATH$appPATH$fontPATH$fontName" "$backupPATH$appName$fontPATH"
-    sudo ln -s "$basePATH$WordPATH$fontPATH$fontName" "$basePATH$appPATH$fontPATH$fontName"
+    #sudo mv "$basePATH$appPATH$fontPATH$fontName" "$backupPATH$appName$fontPATH"
+    #sudo ln -s "$basePATH$WordPATH$fontPATH$fontName" "$basePATH$appPATH$fontPATH$fontName"
     # echo "$basePATH$appPATH$fontPATH$fontName" "$backupPATH$appName$fontPATH"
     # echo "$basePATH$WordPATH$fontPATH$fontName" "$basePATH$appPATH$fontPATH$fontName"
+    mkdir -p "$backupPATH$appName$fontPATH$fontName"
+    #echo "$basePATH$appPATH$fontPATH$fontName"
+    for fontFile in `ls "$basePATH$appPATH$fontPATH$fontName"`
+    do
+        #echo "$basePATH$WordPATH$fontPATH$fontName/$fontFile"
+        if [ -f "$basePATH$WordPATH$fontPATH$fontName/$fontFile" ]; then
+	    #echo "${WordPATH/.app/} and $appName both have fontFile: $fontFile"
+    	    sudo mv "$basePATH$appPATH$fontPATH$fontName/$fontFile" "$backupPATH$appName$fontPATH$fontName/"
+	    sudo ln -s "$basePATH$WordPATH$fontPATH$fontName/$fontFile" "$basePATH$appPATH$fontPATH$fontName/$fontFile"
+        #else
+	    #	echo "world has not fontFile: $fontFile"
+        fi
+    done
 done
 
 # ==============================
